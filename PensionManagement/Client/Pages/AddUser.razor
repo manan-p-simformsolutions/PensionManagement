@@ -62,6 +62,7 @@
         }
         else
         {
+            user.Date = DateTime.Now;
             await Http.PostAsJsonAsync("api/User", user);
         }
         Cancel();
