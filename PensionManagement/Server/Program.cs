@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using PensionManagement.Server.Data;
-using PensionManagement.Server.Models;
 using PensionManagement.Server.Interfaces;
 using PensionManagement.Server.Services;
 
@@ -18,11 +17,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddIdentityServer()
-    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+    .AddApiAuthorization<User, ApplicationDbContext>();
 
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
@@ -53,8 +52,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseIdentityServer();
 app.UseAuthentication();
+app.UseIdentityServer();
+
 app.UseAuthorization();
 
 

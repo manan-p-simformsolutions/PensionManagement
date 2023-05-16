@@ -1,0 +1,29 @@
+﻿@page "/downloadreport"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using PensionManagement.Shared
+@using PensionManagement.Shared.Models
+@attribute [Authorize]
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime
+
+<button class="btn btn-primary mb-2" @onclick="DownloadReport">Download Report</button>
+
+@code {
+    private async Task DownloadReport()
+    {
+        try
+        {
+            var response = await Http.GetAsync("api/user/DownloadReport");
+            var users = await response.Content.ReadFromJsonAsync<List<User>>();
+            var csv = string.Join(Environment.NewLine, users.Select(u => $"{u.Userid},{u.Username},{u.Email}"));
+            var bytes =   System.Text.Encoding.ASCII.GetBytes(csv);
+            var stream = new MemoryStream(bytes);
+            await JSRuntime.InvokeVoidAsync("BlazorDownloadFile", "UserReport.csv", "text/csv", stream);
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}

@@ -18,8 +18,17 @@ namespace PensionManagement.Server.Controllers
         [HttpGet("_configuration/{clientId}")]
         public IActionResult GetClientRequestParameters([FromRoute] string clientId)
         {
-            var parameters = ClientRequestParametersProvider.GetClientParameters(HttpContext, clientId);
-            return Ok(parameters);
+            try
+            {
+                var parameters = ClientRequestParametersProvider.GetClientParameters(HttpContext, clientId);
+                return Ok(parameters);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, $"An error occured while retrieving client parameters for client Id '{clientId}[");
+                return StatusCode(StatusCodes.Status500InternalServerError, "n error occured while retrieving client parameters");
+            }
+            
         }
     }
 }

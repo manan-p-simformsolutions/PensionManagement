@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PensionManagement.Server", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PensionManagement.Client", "PensionManagement\Client\PensionManagement.Client.csproj", "{BCB4D14B-E99F-4F21-BB17-F0505D5F7F79}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PensionManagement.Shared", "PensionManagement\Shared\PensionManagement.Shared.csproj", "{E7E08CFA-5AF4-4592-B539-F932A9F9AE0C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateFunction", "DateFunction\DateFunction.csproj", "{672817F5-60AB-44D2-BF9D-4349B416B03A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DateFunction", "DateFunction\DateFunction.csproj", "{672817F5-60AB-44D2-BF9D-4349B416B03A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{BCB4D14B-E99F-4F21-BB17-F0505D5F7F79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCB4D14B-E99F-4F21-BB17-F0505D5F7F79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCB4D14B-E99F-4F21-BB17-F0505D5F7F79}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E7E08CFA-5AF4-4592-B539-F932A9F9AE0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7E08CFA-5AF4-4592-B539-F932A9F9AE0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7E08CFA-5AF4-4592-B539-F932A9F9AE0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7E08CFA-5AF4-4592-B539-F932A9F9AE0C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{672817F5-60AB-44D2-BF9D-4349B416B03A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{672817F5-60AB-44D2-BF9D-4349B416B03A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{672817F5-60AB-44D2-BF9D-4349B416B03A}.Release|Any CPU.ActiveCfg = Release|Any CPU

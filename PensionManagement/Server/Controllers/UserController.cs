@@ -2,6 +2,7 @@
 using PensionManagement.Shared.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace PensionManagement.Server.Controllers
 {
@@ -15,35 +16,103 @@ namespace PensionManagement.Server.Controllers
             _IUser = iUser;
         }
         [HttpGet]
-        public async Task<List<User>> Get()
+        public async Task<ActionResult<List<User>>> Get()
         {
-            return await Task.FromResult(_IUser.GetUserDetails());
+            try
+            {
+                return await Task.FromResult(_IUser.GetUserDetails());
+            }catch(Exception ex) 
+            {
+                return BadRequest($"An error occured : {ex.Message}");             
+            }
         }
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            User user = _IUser.GetUserData(id);
-            if (user != null)
+            try
             {
-                return Ok(user);
+                User user = _IUser.GetUserData(id);
+                if (user != null)
+                {
+                    return Ok(user);
+                }
+                return NotFound();
             }
-            return NotFound();
+            catch(Exception ex)
+            {
+                return BadRequest($"An error occured :{ex.Message}");
+            }
+            
         }
         [HttpPost]
-        public void Post(User user)
+        public ActionResult Post(User user)
         {
-            _IUser.AddUser(user);
+            try
+            {
+                _IUser.AddUser(user);
+                return Ok();
+            }
+            catch(Exception ex) 
+            {
+                return BadRequest($"An error occured: {ex.Message}");
+            }
+            
         }
         [HttpPut]
-        public void Put(User user)
+        public ActionResult Put(User user)
         {
-            _IUser.UpdateUserDetails(user);
+            try
+            {
+                _IUser.UpdateUserDetails(user);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest($"An error occured: {ex.Message}");
+            }
+            
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _IUser.DeleteUser(id);
-            return Ok();
+            try
+            {
+                _IUser.DeleteUser(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"An error occured : {ex.Message}");
+            }
+        }
+            [HttpGet("DownloadReport")]
+            public async Task<IActionResult> DownloadReport()
+            {
+                try
+                {
+                    var users = await Task.FromResult(_IUser.GetUserDetails());
+                    var csv = new StringBuilder();
+                    csv.AppendLine("User Id,Username,Address,Mobile number,Email");
+                    foreach (var user in users)
+                    {
+                        var line = string.Format("{0},{1},{2},{3},{4}",
+                            user.Userid,
+                            user.Username,
+                            user.Address,
+                            user.Mobilenumber,
+                            user.Email);
+                        csv.AppendLine(line);
+                    }
+                    var bytes = Encoding.UTF8.GetBytes(csv.ToString());
+                    return File(bytes, "text/csv", "users.csv");
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest($"An error occured: {ex.Message}");
+                }
+            
+
+
         }
     }
 }

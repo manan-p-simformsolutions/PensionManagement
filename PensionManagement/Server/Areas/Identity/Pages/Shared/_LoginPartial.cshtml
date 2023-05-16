@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using PensionManagement.Server.Models
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+@using PensionManagement.Shared.Models
+@inject SignInManager<PensionManagement.Shared.Models.User> SignInManager
+@inject UserManager<PensionManagement.Shared.Models.User> UserManager
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{

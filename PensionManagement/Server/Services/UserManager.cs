@@ -1,5 +1,4 @@
 ﻿using PensionManagement.Server.Interfaces;
-using PensionManagement.Server.Models;
 using PensionManagement.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 using PensionManagement.Server.Data;
